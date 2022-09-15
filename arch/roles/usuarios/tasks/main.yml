@@ -1,0 +1,12 @@
+- name: Antes de crear los usuarios, creamos los grupos de los que serán miembros para que useradd no se queje.
+  group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ users | map(attribute='groups') | flatten }}"
+
+
+- name: Creamos los usuarios que hemos listado en el "group_vars
+  user:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ users | map(attribute='name') }}"

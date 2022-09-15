@@ -1,0 +1,18 @@
+paquetes:
+- python
+- neovim
+- nano
+- vim
+- mlocate
+- bat
+- zsh
+- tar
+- p7zip
+- cifs-utils
+- sshpass
+- openssh
+- git
+- curl
+- wget
+- python-pip
+- sudo

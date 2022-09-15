@@ -1,0 +1,4 @@
+- name: install ntpdate
+  package:
+    name: ntpdate
+    state: present

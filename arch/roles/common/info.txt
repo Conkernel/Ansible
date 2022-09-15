@@ -1,0 +1,16 @@
+https://charlesreid1.com/wiki/Ansible/Directory_Layout/Details
+
+
+Common Role
+The common role is a role that defines default values for all roles. Each subsequent role can override these settings selectively.
+
+
+
+The details of each subdirectory of each role is covered on the Ansible/Roles page:
+
+tasks - https://charlesreid1.com/wiki/Ansible/Roles#Tasks
+files - https://charlesreid1.com/wiki/Ansible/Roles#Files
+variables - https://charlesreid1.com/wiki/Ansible/Roles#Variables_2
+defaults - https://charlesreid1.com/wiki/Ansible/Roles#Defaults_2
+handlers - https://charlesreid1.com/wiki/Ansible/Roles#Handlers
+

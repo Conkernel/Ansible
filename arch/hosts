@@ -1,0 +1,31 @@
+localhost   ansible_connection=local
+
+[arch]
+archy
+
+[debian]
+control
+app3
+
+[centos]
+app1
+lb
+app2
+db
+
+[lab:children]
+debian
+centos
+arch
+
+[windows]
+win10 ansible_host=10.0.0.30
+
+[windows:vars]
+ansible_user=oloco
+ansible_password=oloco
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+

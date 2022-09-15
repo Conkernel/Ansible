@@ -1,0 +1,5 @@
+
+- name: Instala paquetes varios {{paquetes}}
+  package:
+    name: "{{paquetes}}"
+    state: installed

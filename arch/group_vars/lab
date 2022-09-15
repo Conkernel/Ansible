@@ -1,0 +1,2 @@
+# file: group_vars/lab
+ntp: 0.es.pool.ntp.org

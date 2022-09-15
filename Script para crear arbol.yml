@@ -1,0 +1,24 @@
+---
+# Playbook para crear estructura de ansible para nuevos proyectos
+# URL: https://www.youtube.com/watch?v=8z3yCKXzmac
+
+- name: Prompt for name
+  hosts: localhost
+  vars:
+    - directory: "/mnt/repos/Ansible/"
+  
+  vars_prompt:
+
+    - name: project
+      prompt: Nombre del proyecto/cliente?
+      private: no
+
+
+
+  tasks:
+
+    - name: Crear directorio de proyecto y Groups vars
+      file:
+        path: "{{ directory }}{{ project }}/group_vars"
+        state: directory
+      delegate_to: localhost

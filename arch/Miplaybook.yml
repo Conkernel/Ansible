@@ -1,0 +1,5 @@
+- hosts: arch
+  become: true
+  roles:
+   - role: usuarios
+   - role: paquetería

@@ -1,0 +1,9 @@
+---
+users:
+  - name: oloco
+    comment: oloco
+    groups: ["oloco", "wheel",  "sudo"]
+  - name: testuser
+    comment: testuser
+    groups: ["testuser"]
+...

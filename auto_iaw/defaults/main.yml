@@ -1,0 +1,4 @@
+---
+# defaults file for auto_iaw
+
+host_key_checking = False

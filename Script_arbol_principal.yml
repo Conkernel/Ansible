@@ -1,0 +1,237 @@
+- name: Prompt for name
+  hosts: localhost
+  vars:
+    - directory: "/mnt/repos/Ansible/Playbooks/"
+  
+  vars_prompt:
+
+    - name: project
+      prompt: Nombre del proyecto/cliente?
+      private: no
+
+
+
+  tasks:
+
+  - name: Creando "{{ directory }}{{ project }}"
+    file:
+      path: "{{ directory }}{{ project }}"
+      state: directory
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/group_vars"
+    file:
+      path: "{{ directory }}{{ project }}/group_vars"
+      state: directory
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/group_vars/grupo1"
+    file:
+      path: "{{ directory }}{{ project }}/group_vars/grupo1"
+      state: touch
+    delegate_to: localhost  
+
+  - name: Creando "{{ directory }}{{ project }}/host_vars"
+    file:
+      path: "{{ directory }}{{ project }}/host_vars"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/host_vars/grupo1"
+    file:
+      path: "{{ directory }}{{ project }}/host_vars/grupo1"
+      state: touch
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/library"
+    file:
+      path: "{{ directory }}{{ project }}/library"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/module_utils"
+    file:
+      path: "{{ directory }}{{ project }}/module_utils"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/filter_plugins"
+    file:
+      path: "{{ directory }}{{ project }}/filter_plugins"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/tasks"
+    file:
+      path: "{{ directory }}{{ project }}/tasks"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/tasks/webservers_extra.yml"
+    file:
+      path: "{{ directory }}{{ project }}/tasks/webservers_extra.yml"
+      state: touch
+    delegate_to: localhost 
+
+
+  - name: Creando "{{ directory }}{{ project }}/roles"
+    file:
+      path: "{{ directory }}{{ project }}/roles"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/tasks"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/tasks"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/tasks/main.yml"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/tasks/main.yml"
+      state: touch
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/handlers"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/handlers"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/handlers/main.yml"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/handlers/main.yml"
+      state: touch
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/templates"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/templates"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/templates/ntp.conf"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/templates/ntp.conf"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/files"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/files"
+      state: directory
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/files/bar.txt"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/files/bar.txt"
+      state: touch
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/files/foo.sh"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/files/foo.sh"
+      state: touch
+    delegate_to: localhost
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/vars"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/vars"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/vars/main.yml"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/vars/main.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/defaults"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/defaults"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/defaults/main.yml"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/defaults/main.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/meta"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/meta"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/meta/main.yml"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/meta/main.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/library"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/library"
+      state: directory
+    delegate_to: localhost 
+  
+  - name: Creando "{{ directory }}{{ project }}/roles/common/module_utils"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/module_utils"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/common/lookup_plugins"
+    file:
+      path: "{{ directory }}{{ project }}/roles/common/lookup_plugins"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/webtier"
+    file:
+      path: "{{ directory }}{{ project }}/roles/webtier"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/monitoring"
+    file:
+      path: "{{ directory }}{{ project }}/roles/monitoring"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/roles/otra_aplicación"
+    file:
+      path: "{{ directory }}{{ project }}/roles/otra_aplicación"
+      state: directory
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/inv_producción.yml"
+    file:
+      path: "{{ directory }}{{ project }}/inv_producción.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/inv_staging.yml"
+    file:
+      path: "{{ directory }}{{ project }}/inv_staging.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/sitio_principal.yml"
+    file:
+      path: "{{ directory }}{{ project }}/sitio_principal.yml"
+      state: touch
+    delegate_to: localhost 
+
+  - name: Creando "{{ directory }}{{ project }}/webservers.yml"
+    file:
+      path: "{{ directory }}{{ project }}/webservers.yml"
+      state: touch
+    delegate_to: localhost
