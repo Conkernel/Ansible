@@ -31,7 +31,7 @@
     - role: proxy
     - role: wireless
     - role: virtguest
-      when: virtguest_enabled | default(True) | bool
+      when: virtguest_enabled | default(False) | bool
     - role: xfce_user_customizations
       when: xfce_user_customizations_enabled | default(True) | bool
     - role: yay_user_customizations
@@ -43,7 +43,7 @@
     - role: xutils
       when: xutils_enabled | default(True) | bool
     - role: bluetooth
-      when: bluetooth_enabled | default(True) | bool
+      when: bluetooth_enabled | default(False) | bool
   tasks:
     - name: Call custom roles
       include_role:
