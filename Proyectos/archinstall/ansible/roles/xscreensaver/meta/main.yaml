@@ -1,0 +1,8 @@
+dependencies:
+  - role: xorg
+  - role: packages
+    vars:
+      packages:
+        - xscreensaver
+  - role: virtguest_force
+  - role: users

@@ -1,0 +1,20 @@
+DEFAULT linux_linux.img
+PROMPT 0
+TIMEOUT 50
+UI menu.c32
+
+{% for kernel in kernels.files | zip(ramdisks.results) | list -%}
+{%- for initramfs in kernel[1].files -%}
+
+{%- set kernel_name = kernel[0].path | basename -%}
+{%- set initramfs_name = initramfs.path | basename -%}
+{%- set kernel_id  = kernel_name | replace('vmlinuz-', '', 1) -%}
+{%- set initramfs_id  = initramfs_name | replace('initramfs-', '', 1) -%}
+LABEL {{ kernel_id }}_{{ initramfs_id }}
+    MENU LABEL {{ kernel_id }} with {{ initramfs_id }}
+    LINUX ../{{ kernel_name }}
+    APPEND root=UUID={{ root_uuid }} rw quiet
+    INITRD ../{{ initramfs_name }}
+
+{% endfor -%}
+{%- endfor %}

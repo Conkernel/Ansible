@@ -1,0 +1,122 @@
+{
+  "variables" : {
+    "http_proxy"  : "{{env `http_proxy`}}",
+    "https_proxy" : "{{env `https_proxy`}}",
+    "no_proxy"    : "{{env `no_proxy`}}",
+    "arch_iso"    : "http://mirror.rackspace.com/archlinux/iso/latest/archlinux-x86_64.iso",
+    "arch_iso_sum": "file:http://mirror.rackspace.com/archlinux/iso/latest/md5sums.txt",
+    "ssh_authkey" : "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMxWY/8/m23+oBuOdC8YH7SdhaRdTQ0fRqcL8O3EaIUX TempKey",
+    "cmd_cow"     : "<tab><end> cow_spacesize=1G<enter>",
+    "cmd_ssh"     : "<wait60>systemctl start sshd && mkdir -m 0700 /root/.ssh<enter>",
+    "memory"      : "2048",
+    "disk_size"   : "65536",
+    "off_cmd"     : "poweroff"
+  },
+
+
+  "builders": [
+    {
+      "type" : "virtualbox-iso",
+      "guest_os_type" : "ArchLinux_64",
+      "iso_url" : "{{user `arch_iso`}}",
+      "iso_checksum" : "{{user `arch_iso_sum`}}",
+      "boot_command" : [
+        "{{user `cmd_cow`}}",
+        "{{user `cmd_ssh`}}",
+        "echo '{{.SSHPublicKey}}' >> /root/.ssh/authorized_keys<enter>"
+      ],
+      "guest_additions_mode" : "disable",
+      "shutdown_command" : "{{ user `off_cmd` }}",
+      "ssh_username" : "root",
+      "ssh_clear_authorized_keys" : false,
+      "memory" : "{{ user `memory` }}",
+      "disk_size" : "{{ user `disk_size` }}",
+      "hard_drive_interface" : "sata",
+      "iso_interface" : "sata",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--nictype1", "virtio"],
+        ["modifyvm", "{{.Name}}", "--vram", "16"],
+        ["modifyvm", "{{.Name}}", "--rtcuseutc", "on"],
+        ["modifyvm", "{{.Name}}", "--graphicscontroller", "vmsvga"],
+        ["storagectl", "{{.Name}}", "--name", "IDE Controller", "--remove"]
+      ]
+    },
+    {
+      "type" : "qemu",
+      "iso_url" : "{{user `arch_iso`}}",
+      "iso_checksum" : "{{user `arch_iso_sum`}}",
+      "vm_name" : "archlinux.qcow2",
+      "shutdown_command" : "{{ user `off_cmd` }}",
+      "ssh_username" : "root",
+      "ssh_clear_authorized_keys" : false,
+      "memory" : "{{ user `memory` }}",
+      "disk_size" : "{{ user `disk_size` }}",
+      "ssh_private_key_file": "./insecure_key",
+      "disk_interface": "virtio-scsi",
+      "qemuargs" : [
+        ["-vga", "virtio"]
+      ],
+      "boot_command" : [
+        "{{user `cmd_cow`}}",
+        "{{user `cmd_ssh`}}",
+        "echo '{{user `ssh_authkey`}}' >> /root/.ssh/authorized_keys<enter>"
+      ]
+    }
+  ],
+
+  "provisioners" : [
+    {
+      "type" : "shell",
+      "script" : "prepare.sh",
+      "environment_vars" : [
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ]
+    },
+    {
+      "type" : "ansible-local",
+      "playbook_dir" : "../ansible",
+      "playbook_file" : "../ansible/site.yaml",
+      "extra_arguments" : [
+        "--skip-tags=reboot", "--tags=bootstrap",
+        "-e", "http_proxy={{user `http_proxy`}}",
+        "-e", "https_proxy={{user `https_proxy`}}",
+        "-e", "no_proxy={{user `no_proxy`}}"
+      ]
+    },
+    {
+      "type" : "shell",
+      "inline" : "reboot",
+      "expect_disconnect" : true
+    },
+    {
+      "type" : "shell",
+      "pause_before" : "3m",
+      "script" : "prepare.sh",
+      "environment_vars" : [
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ]
+    },
+    {
+      "type" : "ansible-local",
+      "playbook_dir" : "../ansible",
+      "playbook_file" : "../ansible/site.yaml",
+      "extra_arguments" : [
+        "--skip-tags=reboot", "--tags=mainconfig",
+        "-e", "http_proxy={{user `http_proxy`}}",
+        "-e", "https_proxy={{user `https_proxy`}}",
+        "-e", "no_proxy={{user `no_proxy`}}",
+        "-e", "global_portable_image=True"
+      ]
+    },
+    {
+      "type" : "shell",
+      "script" : "clean.sh"
+    }
+  ],
+
+  "_modeline":" vi: set sw=2 sts=-1 et:"
+}

@@ -1,0 +1,27 @@
+# Yay never gets its own input if we do something like:
+# printf "y\nn\ny\n" | LC_ALL=C yay -Scc
+# because pacman runs first and consumes all input.
+# So we first explicitly run pacman to clean its own stuff
+# and later we run yay, disabling its call to pacman
+# with --pacman true.
+- name: Clear pacman caches
+  shell: printf "y\nn\n" | LC_ALL=C pacman -Scc
+
+- name: Clear yay caches
+  shell: printf "y\n" | LC_ALL=C yay -Scc --pacman true
+  become: yes
+  become_user: "{{ passwordless_sudo_user_name }}"
+
+- name: Remove proxy settings
+  import_role:
+    name: proxy
+  vars:
+    state: absent
+  when: global_portable_image | default(False) | bool
+
+- name: Remove custom repos
+  import_role:
+    name: custom_repos
+  vars:
+    state: absent
+  when: global_portable_image | default(False) | bool

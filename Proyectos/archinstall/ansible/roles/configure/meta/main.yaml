@@ -1,0 +1,4 @@
+dependencies:
+  - role: hostname
+    vars:
+      chroot: "{{ partitioning_root_mount_point }}"

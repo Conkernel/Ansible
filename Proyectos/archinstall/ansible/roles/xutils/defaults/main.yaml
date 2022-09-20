@@ -1,0 +1,16 @@
+# A list of GUI packages to install. Both AUR and regular packages can be
+# supplied here. X.org is already pulled in as a dependency.
+xutils_packages:
+  - gvfs
+  - udisks2
+  - file-roller
+  - evince
+  - gnome-calculator
+  - gnome-keyring
+  - gvim
+  - network-manager-applet
+  - nm-connection-editor
+  - firefox
+  - filezilla
+  - x11-ssh-askpass
+  - pavucontrol
