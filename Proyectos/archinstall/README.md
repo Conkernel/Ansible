@@ -1,5 +1,8 @@
 # Arch-Ansible: an Ansible playbook to install Arch Linux
 
+Run: ansible-playbook -i hosts.yaml --tags bootstrap,mainconfig
+site.yaml
+
 [![Stars](https://img.shields.io/github/stars/binary-manu/arch-ansible.svg?style=social&label=Star)](https://github.com/binary-manu/arch-ansible/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/binary-manu/arch-ansible/blob/master/LICENSE.txt)
 [![Link to the docs](https://img.shields.io/badge/Read%20the%20full%20docs!-%F0%9F%8E%93-brightgreen)][docs]
