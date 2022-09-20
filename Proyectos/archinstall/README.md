@@ -1,10 +1,32 @@
 # Arch-Ansible: an Ansible playbook to install Arch Linux
 
+- El nombre del host quedará como "Archy". Se puede cambir en los ficheros de configuraciones.
+
+- Para un funcionamiento adecuado, es necesario ajustar en el servidor dns el nombre archy
+
+- Comandos de ayuda en mi lab: 
+  
+  ssh-keygen -f "/home/oloco/.ssh/known_hosts" -R "archy"
+
+  ssh-copy-id root@archy
+
+  cd /mnt/repos/Ansible/Proyectos/archinstall/ansible
+  
+
+* Run: ansible-playbook -i hosts.yaml --tags bootstrap,mainconfig site.yaml
 
 
-* Run: ansible-playbook -i hosts.yaml --tags bootstrap,mainconfig
-  site.yaml
 
+Este proyecto no es obra mía.
+
+
+Desaconsejo totalmente utilizar este repositorio, ni siquiera para prácticas. El enlace al proyecto original es el siguiente. Todos los méritos a su dueñ@:
+
+
+https://binary-manu.github.io/arch-ansible/
+
+
+<------- Comienzo del README.md original ------->
 
 
 [![Stars](https://img.shields.io/github/stars/binary-manu/arch-ansible.svg?style=social&label=Star)](https://github.com/binary-manu/arch-ansible/stargazers)
