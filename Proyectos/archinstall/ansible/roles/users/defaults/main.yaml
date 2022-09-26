@@ -1,7 +1,7 @@
 # All user information pertaining to root. For the moment there's just the
 # password.
 users_root_info:
-    password: "abcd$1234_root"
+    password: "oloco"
 
 # User info for all non-root users.
 #
@@ -13,8 +13,8 @@ users_root_info:
 # Additional groups can be added via the `groups` list. To make a user
 # sudo-enabled, set `is_admin` to true, _do not_ add `wheel` to `groups`.
 users_info:
-  manu:
-    password: "abcd$1234_manu"
+  oloco:
+    password: "oloco"
     is_admin: true # Optional item, true if missing
     groups: []     # Optional item, empty list if missing
 

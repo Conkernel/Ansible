@@ -10,8 +10,10 @@ partitioning_priv_device_node: "/dev/sda"
 
 # The boot partition will be this large, in bytes (plus any alignment
 # constraint)
-partitioning_priv_boot_size: "{{ 512 * 1024 * 1024 }}"
+partitioning_priv_boot_size: "{{ 512 * 1024 * 1024 }}"  # 512MB
+partitioning_priv_swap_size: "{{ 4096 * 1024 * 1024 }}"  # 4096MB
 
 # Names for the VG and LV
 partitioning_priv_vg_name: "arch"
+partitioning_priv_swap_name: "swap"
 partitioning_priv_lv_name: "root"

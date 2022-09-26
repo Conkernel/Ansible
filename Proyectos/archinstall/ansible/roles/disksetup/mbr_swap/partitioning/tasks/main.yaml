@@ -1,0 +1,53 @@
+
+- name: Remove all partitions from disk
+  parted:
+    device: /dev/sda
+    number: '{{ item.num }}'
+    state: absent
+  loop: '{{ sda_info.partitions }}'
+
+
+- name: Create a new primary partition with a size of 4GiB for SWAP
+  parted:
+    device: /dev/sda
+    number: 1
+    state: present
+    part_end: 4GiB
+    flags: [ swap ]
+
+- name: Create a new primary partition for Root
+  parted:
+    device: /dev/sda
+    number: 2
+    flags: 
+    state: present
+    part_start: 4GiB      
+
+
+- name: Format the swap partition
+  filesystem:
+    dev:  /dev/sda1
+    fstype: linux-swap
+
+
+- name: Format the root partition
+  filesystem:
+    dev:  /dev/sda2
+    fstype: ext4
+
+
+- name: Mount the root partition
+  mount:
+    state: mounted
+    src: /dev/sda1
+    path: "{{ partitioning_root_mount_point }}"
+    fstype: linux-swap
+
+
+- name: Mount the root partition
+  mount:
+    state: mounted
+    src: /dev/sda2
+    path: /mnt
+    fstype: ext4
+    opts: rw,relatime      

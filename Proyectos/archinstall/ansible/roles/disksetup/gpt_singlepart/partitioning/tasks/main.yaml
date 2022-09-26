@@ -10,12 +10,24 @@
     flags:
       - esp
 
-- name: Create the root partition
+- name: Create the SWAP partition
   parted:
     device: "{{ partitioning_priv_device_node }}"
     state: present
     label: gpt
     number: 2
+    name: SWAP
+    part_start: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 - 1 }}B"
+    part_end: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 - 1 }}B"
+    flags:
+      - esp
+
+- name: Create the root partition
+  parted:
+    device: "{{ partitioning_priv_device_node }}"
+    state: present
+    label: gpt
+    number: 3
     name: root
     part_start: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 }}B"
 
@@ -27,12 +39,19 @@
 - name: Assign partitions to variables
   set_fact:
     partitioning_priv_esp_device_node: "{{ _partitions.stdout_lines[0] }}"
-    partitioning_priv_root_device_node: "{{ _partitions.stdout_lines[1] }}"
+    partitioning_priv_swap_device_node: "{{ _partitions.stdout_lines[1] }}"
+    partitioning_priv_root_device_node: "{{ _partitions.stdout_lines[2] }}"
 
 - name: Format the ESP
   filesystem:
     dev:  "{{ partitioning_priv_esp_device_node }}"
     fstype: vfat
+
+- name: Format the SWAP
+  filesystem:
+    dev:  "{{ partitioning_priv_swap_device_node }}"
+    fstype: swap
+
 
 - name: Format the root partition
   filesystem:
@@ -58,3 +77,10 @@
     src: "{{ partitioning_priv_esp_device_node }}"
     path: "{{ partitioning_root_mount_point }}/boot/efi"
     fstype: vfat
+
+- name: Mount the SWAP
+  mount:
+    state: mounted
+    src: "{{ partitioning_priv_swap_device_node }}"
+    path: "{{ partitioning_root_mount_point }}/boot/efi"
+    fstype: swap
